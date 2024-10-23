@@ -2,5 +2,5 @@ include README.md
 include LICENSE.txt
 include requirements.txt
 include CMakeLists.txt
-recursive-include cmakefiles *.cmake
+recursive-include cmake *.cmake
 recursive-include src *.h *.hpp *.c *.cc *.cpp

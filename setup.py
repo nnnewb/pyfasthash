@@ -67,6 +67,7 @@ setup(
     author='weak_ptr',
     author_email='weak_ptr@outlook.com',
     license="Apache Software License",
+    license_files=["LICENSE.txt"],
     packages=['pyhash'],
     cmdclass=dict(build_ext=CMakeBuild),
     ext_modules=[pyhash],

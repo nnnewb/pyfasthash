@@ -16,7 +16,7 @@ def is_x86():
 
 @pytest.fixture
 def is_64bit():
-    return sys.maxsize > 2**32
+    return sys.maxsize > 2 ** 32
 
 
 @pytest.fixture
@@ -33,30 +33,6 @@ CpuFeatures = namedtuple("CpuFeatures",
                          ['name', 'vendor', 'arch', 'sse41', 'sse42', 'aes', 'avx', 'avx2'])
 
 
-@pytest.fixture
-def cpu(is_x86, is_64bit):
-    cpu = CpuFeatures(name=platform.processor(), vendor=platform.platform(), arch=platform.machine(),
-                      sse41=False, sse42=False, aes=False, avx=False, avx2=False)
-
-    if is_x86:
-        from cpuid import _is_set, cpu_vendor, cpu_name, cpu_microarchitecture
-
-        cpu = CpuFeatures(
-            name=cpu_name().rstrip('\x00'),
-            vendor=cpu_vendor(),
-            arch=cpu_microarchitecture()[0],
-            sse41=_is_set(1, 2, 19) == 'Yes',
-            sse42=_is_set(1, 2, 20) == 'Yes',
-            aes=_is_set(1, 2, 25) == 'Yes',
-            avx=_is_set(1, 2, 28) == 'Yes',
-            avx2=_is_set(7, 1, 5) == 'Yes',
-        )
-
-    logging.getLogger().info("CPU %s", cpu)
-
-    return cpu
-
-
 @pytest.fixture(scope="module")
 def test_data():
     return b'test', u'test'
@@ -67,7 +43,9 @@ for name in pyhash.__hasher__:
         @pytest.fixture(scope='module', name=name)
         def wrap():
             return hasher
+
         return wrap
+
 
     globals()[name] = generate_fixture(name, getattr(pyhash, name))
 

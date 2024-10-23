@@ -4,9 +4,10 @@ requires = ["setuptools>=42", "wheel"]
 
 [tool.tox]
 requires = [
-    "tox>=4.19"
+    "tox>=4.19",
 ]
 env_list = [
+    "3.7",
     "3.8",
     "3.9",
     "3.10",
@@ -16,6 +17,12 @@ env_list = [
 ]
 
 [tool.tox.env_run_base]
+deps = [
+    "pytest >= 4.6",
+    "pytest-cov >= 2.12",
+    "pytest-benchmark >= 3.4",
+    "codecov >= 2.1",
+]
 description = "run test under {base_python}"
 commands = [
     [

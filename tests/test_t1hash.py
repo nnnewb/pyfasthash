@@ -32,11 +32,11 @@ def test_t1ha1_be(hash_tester):
                 unicode_hash=4258761466277697735)
 
 
-def test_t1ha0(hash_tester, cpu):
+def test_t1ha0(hash_tester):
     hash_tester(hasher_type=pyhash.t1ha0,
-                bytes_hash=11576265462006865275 if cpu.aes else 10616215634819799576,
-                seed_hash=9383269742356701786 if cpu.aes else 6056749954736269874,
-                unicode_hash=10647421798084574537 if cpu.aes else 18194209408316694427)
+                bytes_hash=11576265462006865275 if pyhash.build_with_aes_ni else 10616215634819799576,
+                seed_hash=9383269742356701786 if pyhash.build_with_aes_ni else 6056749954736269874,
+                unicode_hash=10647421798084574537 if pyhash.build_with_aes_ni else 18194209408316694427)
 
 
 @pytest.mark.benchmark(group='hash64', disable_gc=True)

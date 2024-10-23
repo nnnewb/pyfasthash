@@ -34,6 +34,10 @@ if (MSVC)
     target_link_options(${PROJECT_NAME} PRIVATE /OPT:REF /OPT:ICF)
 endif ()
 
+if (HAS_AES_INSTRUCTION)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE HAS_AES_INST)
+endif ()
+
 target_include_directories(
         ${PROJECT_NAME} PRIVATE
         src/

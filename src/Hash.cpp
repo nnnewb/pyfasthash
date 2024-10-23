@@ -19,6 +19,12 @@ PYBIND11_MODULE(_pyhash2, m)
 {
   m.doc() = "Python Non-cryptographic Hash Library";
 
+#if defined(HAS_AES_INST)
+  m.attr("build_with_aes_ni") = true;
+#else
+  m.attr("build_with_aes_ni") = false;
+#endif
+
 #if defined(__SSE4_2__) && defined(__x86_64__)
   m.attr("build_with_sse42") = true;
 #else

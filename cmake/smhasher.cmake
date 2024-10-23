@@ -10,7 +10,7 @@ set(
         src/smhasher/metrohash/metrohash128.cpp
 )
 
-if (CMAKE_SYSTEM_PROCESSOR MATCHES "^aarch64" OR CMAKE_SYSTEM_PROCESSOR MATCHES "(x86|x86_64|i[3-6]86)|amd64|AMD64")
+if (HAS_SSE42)
     list(
             APPEND SMHASHER_SOURCES
             src/smhasher/metrohash/metrohash64crc.cpp
@@ -22,6 +22,10 @@ add_library(
         smhasher STATIC
         ${SMHASHER_SOURCES}
 )
+
+if (HAS_SSE42 AND NOT MSVC)
+    target_compile_options(smhasher PRIVATE -msse4.2)
+endif ()
 
 set_target_properties(smhasher PROPERTIES CXX_STANDARD 11)
 if (MSVC)

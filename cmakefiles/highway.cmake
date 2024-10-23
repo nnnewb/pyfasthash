@@ -20,7 +20,10 @@ elseif (CMAKE_SYSTEM_PROCESSOR MATCHES "ppc64")
 endif ()
 
 add_library(highway STATIC ${HIGHWAYHASH_SOURCES})
-
+target_include_directories(
+        highway PRIVATE
+        src/highwayhash
+)
 if (CMAKE_SYSTEM_PROCESSOR MATCHES "(x86_64|amd64|AMD64)")
     target_compile_options(highway PRIVATE -msse4.1 -mavx2)
 elseif (CMAKE_SYSTEM_PROCESSOR MATCHES "^aarch64")

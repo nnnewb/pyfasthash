@@ -21,6 +21,9 @@ add_library(
 
 target_compile_definitions(t1ha PRIVATE T1HA0_RUNTIME_SELECT)
 if (HAS_AES_NI)
+    if (NOT MSVC)
+        target_compile_options(t1ha PRIVATE -maes)
+    endif ()
     target_compile_definitions(t1ha PRIVATE T1HA0_AESNI_AVAILABLE)
 endif ()
 

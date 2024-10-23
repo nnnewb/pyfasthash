@@ -4,5 +4,7 @@ add_library(
 )
 
 if (MSVC)
-    target_compile_options(farm PRIVATE /MT /Zi /EHsc)
+    target_compile_options(farm PRIVATE /utf-8 /MT /Zi /EHsc)
+else ()
+    target_compile_options(farm PRIVATE -fPIC)
 endif ()

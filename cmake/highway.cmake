@@ -24,6 +24,8 @@ target_include_directories(
         highway PRIVATE
         src/highwayhash
 )
+
+target_compile_options(highway PRIVATE -fPIC)
 if (CMAKE_SYSTEM_PROCESSOR MATCHES "(x86_64|amd64|AMD64)")
     target_compile_options(highway PRIVATE -msse4.1 -mavx2)
 elseif (CMAKE_SYSTEM_PROCESSOR MATCHES "^aarch64")

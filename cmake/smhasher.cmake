@@ -29,5 +29,7 @@ endif ()
 
 set_target_properties(smhasher PROPERTIES CXX_STANDARD 11)
 if (MSVC)
-    target_compile_options(smhasher PRIVATE /MT /Zi /EHsc)
+    target_compile_options(smhasher PRIVATE /utf-8 /MT /Zi /EHsc)
+else ()
+    target_compile_options(smhasher PRIVATE -fPIC)
 endif ()

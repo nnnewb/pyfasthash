@@ -63,14 +63,13 @@ jobs:
 
       - name: Install requirements
         run: |
-          pip install -U pip setuptools wheel
-          pip install cpuid
+          pip install -U pip setuptools wheel build
           pip install -r requirements.txt
           pip install -r tests/requirements.txt
 
       - name: Build extensions
         run: |
-          python setup.py build_clib build_ext --inplace
+          python -m build
 
       - name: Run tests
         run: |

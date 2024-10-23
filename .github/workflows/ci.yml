@@ -69,7 +69,7 @@ jobs:
 
       - name: Build extensions
         run: |
-          python -m build
+          pip install .
 
       - name: Run tests
         run: |

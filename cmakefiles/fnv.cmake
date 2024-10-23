@@ -5,3 +5,6 @@ add_library(
         src/fnv/hash_64.c
         src/fnv/hash_64a.c
 )
+if (MSVC)
+    target_compile_options(fnv PRIVATE /MT /Zi /EHsc)
+endif ()

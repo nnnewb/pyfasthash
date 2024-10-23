@@ -35,3 +35,7 @@ target_compile_definitions(t1ha PRIVATE T1HA0_RUNTIME_SELECT)
 if (HAS_AES_INSTRUCTION)
     target_compile_definitions(t1ha PRIVATE T1HA0_AESNI_AVAILABLE)
 endif ()
+
+if (MSVC)
+    target_compile_options(t1ha PRIVATE /MT /Zi /EHsc)
+endif ()

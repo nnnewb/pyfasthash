@@ -1,8 +1,11 @@
+import os
+
 import pytest
 
 import pyhash
 
 
+@pytest.mark.skipif(os.name == 'nt', reason='no windows support')
 def test_highway_64(hash_tester):
     hash_tester(hasher_type=pyhash.highway_64,
                 bytes_hash=10478741295963822880,
@@ -11,6 +14,7 @@ def test_highway_64(hash_tester):
 
 
 @pytest.mark.skipif(not pyhash.build_with_int128, reason="requires int128 support")
+@pytest.mark.skipif(os.name == 'nt', reason='no windows support')
 def test_highway_128(hash_tester):
     hash_tester(hasher_type=pyhash.highway_128,
                 bytes_hash=205029416337089142837388334492957817459,
@@ -20,6 +24,7 @@ def test_highway_128(hash_tester):
 
 
 @pytest.mark.skipif(not pyhash.build_with_int128, reason="requires int128 support")
+@pytest.mark.skipif(os.name == 'nt', reason='no windows support')
 def test_highway_256(hash_tester):
     hash_tester(hasher_type=pyhash.highway_256,
                 bytes_hash=81695253358482264846640254134214061745359108833184802399504321540179680608337,
@@ -28,12 +33,14 @@ def test_highway_256(hash_tester):
 
 
 @pytest.mark.benchmark(group='hash64', disable_gc=True)
+@pytest.mark.skipif(os.name == 'nt', reason='no windows support')
 def bench_highway_64(benchmark, hash_bencher):
     hash_bencher(benchmark, pyhash.highway_64, 17171225769172857249)
 
 
 @pytest.mark.skipif(not pyhash.build_with_int128, reason="requires int128 support")
 @pytest.mark.benchmark(group='hash128', disable_gc=True)
+@pytest.mark.skipif(os.name == 'nt', reason='no windows support')
 def bench_highway_128(benchmark, hash_bencher):
     hash_bencher(benchmark, pyhash.highway_128,
                  263168739977411690410017013291704716368)
@@ -41,6 +48,7 @@ def bench_highway_128(benchmark, hash_bencher):
 
 @pytest.mark.skipif(not pyhash.build_with_int128, reason="requires int128 support")
 @pytest.mark.benchmark(group='hash128', disable_gc=True)
+@pytest.mark.skipif(os.name == 'nt', reason='no windows support')
 def bench_highway_256(benchmark, hash_bencher):
     hash_bencher(benchmark, pyhash.highway_256,
                  263168739977411690410017013291704716368)

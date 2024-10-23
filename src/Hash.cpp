@@ -15,7 +15,7 @@
 #include "wyHash.h"
 #include "Halftime.h"
 
-PYBIND11_MODULE(_pyhash, m)
+PYBIND11_MODULE(_pyhash2, m)
 {
   m.doc() = "Python Non-cryptographic Hash Library";
 

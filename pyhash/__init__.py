@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 import sys
 import inspect
 
-import _pyhash
+import _pyhash2 as _pyhash
 
 __is_little_endian__ = sys.byteorder == 'little'
 

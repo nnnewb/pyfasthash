@@ -1,3 +1,27 @@
 [build-system]
 build-backend = "setuptools.build_meta"
-requires = ["setuptools>=42", "wheel", "pybind11>=2.8.1"]
+requires = ["setuptools>=42", "wheel"]
+
+[tool.tox]
+requires = [
+    "tox>=4.19"
+]
+env_list = [
+    "3.8",
+    "3.9",
+    "3.10",
+    "3.11",
+    "3.12",
+    "3.13"
+]
+
+[tool.tox.env_run_base]
+description = "run test under {base_python}"
+commands = [
+    [
+        "pytest",
+        "--benchmark-disable",
+        "--cov=./",
+        "-v"
+    ],
+]

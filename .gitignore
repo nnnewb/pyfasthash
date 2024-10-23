@@ -2,7 +2,7 @@
 .vscode
 build
 dist
-pyhash.egg-info
+*.egg-info
 .tox
 .eggs
 .pytest_cache

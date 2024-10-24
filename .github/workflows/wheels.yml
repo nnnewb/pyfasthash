@@ -29,7 +29,8 @@ jobs:
         run: |
           source .venv/bin/activate
           python -m build --sdist --wheel --outdir dist/ .
-          auditwheel repair dist/*.whl -w dist/
+          auditwheel repair dist/*-linux_*.whl -w dist/
+          rm -f dist/*-linux_*.whl
 
       - name: Publish to test.pypi.org
         if: github.event_name == 'push'

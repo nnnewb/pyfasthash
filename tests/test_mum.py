@@ -1,4 +1,5 @@
 import os
+import platform
 
 import pytest
 
@@ -14,5 +15,9 @@ def test_mum64(hash_tester, is_msvc):
 
 @pytest.mark.benchmark(group='hash64', disable_gc=True)
 def test_mum_hash3_perf(benchmark, hash_bencher, is_msvc):
-    hash_bencher(benchmark, pyhash.mum_64,
-                 16713191835145177100 if is_msvc else 5704960907050105809)
+    expect = 5704960907050105809
+    if is_msvc:
+        expect = 16713191835145177100
+    elif platform.machine() == 'aarch64':
+        expect = 11530567495255767364
+    hash_bencher(benchmark, pyhash.mum_64, expect)

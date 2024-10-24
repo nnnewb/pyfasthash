@@ -19,14 +19,14 @@ add_library(
         ${T1HA_SOURCES}
 )
 
-target_compile_definitions(t1ha PRIVATE T1HA0_RUNTIME_SELECT=1)
+target_compile_definitions(t1ha PUBLIC T1HA0_RUNTIME_SELECT=1)
 if (HAS_AES_NI)
-    target_compile_definitions(t1ha PRIVATE T1HA0_AESNI_AVAILABLE=1)
+    target_compile_definitions(t1ha PUBLIC T1HA0_AESNI_AVAILABLE=1)
     if (NOT MSVC)
         target_compile_options(t1ha PRIVATE -maes)
     endif ()
 else ()
-    target_compile_definitions(t1ha PRIVATE T1HA0_AESNI_AVAILABLE=0)
+    target_compile_definitions(t1ha PUBLIC T1HA0_AESNI_AVAILABLE=0)
 endif ()
 
 if (MSVC)

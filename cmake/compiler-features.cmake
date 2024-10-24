@@ -26,3 +26,17 @@ check_cxx_source_compiles(
 if (HAS_SSE42)
         message(STATUS "build with SSE4.2 enabled")
 endif ()
+
+check_cxx_source_compiles(
+        "
+                #ifdef __SIZEOF_INT128__
+                int main(void) { return 0; }
+                #else
+                #error __SIZEOF_INT128__ is not defined
+                #endif
+        "
+        HAS_INT128
+)
+if (HAS_INT128)
+        message(STATUS "build with __int128 enabled")
+endif ()

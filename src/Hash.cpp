@@ -158,7 +158,9 @@ PYBIND11_MODULE(_pyhash2, m)
   wy_hash_32_t::Export(m, "wy_32");
   wy_hash_64_t::Export(m, "wy_64");
 
+#ifndef __aarch64__
   halftime_hash_64_t::Export(m, "halftime_64");
+#endif
 
 #ifdef SUPPORT_INT128
   halftime_hash_128_t::Export(m, "halftime_128");

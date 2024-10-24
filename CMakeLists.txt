@@ -40,6 +40,10 @@ if (HAS_METRO_HASH_CRC)
     target_compile_definitions(${PROJECT_NAME} PRIVATE SUPPORT_METRO_HASH_CRC=1)
 endif ()
 
+if (HAS_INT128 AND NOT MSVC)
+    target_compile_options(${PROJECT_NAME} PRIVATE -flax-vector-conversions)
+endif ()
+
 target_include_directories(
         ${PROJECT_NAME} PRIVATE
         src/

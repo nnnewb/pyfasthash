@@ -1,4 +1,6 @@
 #pragma once
+// FIXME: compile failed on aarch64
+#ifndef __aarch64__
 
 #include <algorithm>
 #include <array>
@@ -135,4 +137,5 @@ const halftime_hash_512_t::hash_value_t halftime_hash_512_t::operator()(void *bu
     return halftime_hash::HalftimeHashStyle512(seed.data(), (const char *)buf, len);
 }
 
+#endif
 #endif

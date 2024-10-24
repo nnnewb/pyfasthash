@@ -32,11 +32,11 @@ jobs:
       - name: Publish to test.pypi.org
         if: github.event_name == 'workflow_dispatch'
         run: |
-          twine upload --non-interactive --skip-existing -r https://test.pypi.org/legacy/ -u __token__ -p ${{ secrets.TEST_PYPI_TOKEN }} dist/*
+          twine upload --non-interactive --skip-existing -r testpypi -u __token__ -p ${{ secrets.TEST_PYPI_TOKEN }} dist/*
       - name: Publish to PYPI
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
         run: |
-          twine upload --non-interactive --skip-existing -r https://test.pypi.org/legacy/ -u __token__ -p ${{ secrets.TEST_PYPI_TOKEN }} dist/*
+          twine upload --non-interactive --skip-existing -u __token__ -p ${{ secrets.TEST_PYPI_TOKEN }} dist/*
 
   build-and-publish-manylinux2014-x64:
     strategy:

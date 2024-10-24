@@ -73,4 +73,4 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest -v --benchmark-disable --log-cli-level=info -k 'not highway'
+          pytest -v --benchmark-disable --log-cli-level=info -k 'not highway' tests

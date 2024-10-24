@@ -29,6 +29,7 @@ commands = [
         "pytest",
         "--benchmark-disable",
         "--cov=./",
-        "-v"
+        "-v",
+        "tests"
     ],
 ]

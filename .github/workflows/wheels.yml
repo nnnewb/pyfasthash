@@ -25,7 +25,7 @@ jobs:
         run: |
           python -c 'import sys; print(sys.version)'
           python -m pip install -U pip
-          pip install -U setuptools wheel build
+          pip install -U setuptools wheel build twine
       - name: Build wheels
         run: |
           python -m build --wheel --outdir dist/ .

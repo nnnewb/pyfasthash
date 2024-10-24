@@ -1,4 +1,4 @@
-name: wheels
+name: Build and Publish Wheels
 
 on:
   push:
@@ -16,11 +16,13 @@ jobs:
           - os: ubuntu-latest
             architecture: arm64
 
-    name: Build and Publish Python ${{ matrix.python-version }} Wheels
+    name: ${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.python-version }}
     runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          submodules: true
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2

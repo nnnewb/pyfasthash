@@ -36,9 +36,6 @@ jobs:
           - "3.13"
         experimental: [false]
         include:
-          - os: macos-11
-            python-version: 3.8
-            experimental: true
           - os: windows-latest
             python-version: 3.x
             experimental: true

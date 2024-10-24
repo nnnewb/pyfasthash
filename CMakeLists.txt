@@ -36,6 +36,10 @@ if (HAS_AES_NI)
     target_compile_definitions(${PROJECT_NAME} PRIVATE HAS_AES_INST)
 endif ()
 
+if (HAS_METRO_HASH_CRC)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE SUPPORT_METRO_HASH_CRC=1)
+endif ()
+
 target_include_directories(
         ${PROJECT_NAME} PRIVATE
         src/

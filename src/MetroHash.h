@@ -75,6 +75,7 @@ const metro_hash_128_2_t::hash_value_t metro_hash_128_2_t::operator()(void *buf,
 }
 #endif
 
+#ifdef SUPPORT_METRO_HASH_CRC
 template <typename T, int S>
 class metro_hash_crc_t : public Hasher<metro_hash_crc_t<T, S>, uint32_t, T>
 {
@@ -137,4 +138,5 @@ const metro_hash_128_crc_2_t::hash_value_t metro_hash_128_crc_2_t::operator()(vo
     return hash;
 }
 
+#endif
 #endif

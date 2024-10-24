@@ -17,6 +17,7 @@ __VERSION__ = _pyhash.__dict__.get('__VERSION__')
 build_with_sse42 = _pyhash.build_with_sse42
 build_with_int128 = _pyhash.build_with_int128
 build_with_aes_ni = _pyhash.build_with_aes_ni
+build_with_metro_hash_crc = _pyhash.build_with_metro_hash_crc
 
 fnv1_32 = _pyhash.fnv1_32
 fnv1a_32 = _pyhash.fnv1a_32

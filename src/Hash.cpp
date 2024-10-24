@@ -37,6 +37,12 @@ PYBIND11_MODULE(_pyhash2, m)
   m.attr("build_with_int128") = false;
 #endif
 
+#ifdef SUPPORT_METRO_HASH_CRC
+  m.attr("build_with_metro_hash_crc")=true;
+#else
+  m.attr("build_with_metro_hash_crc")=false;
+#endif
+
 #ifdef _MSC_VER
   m.attr("_MSC_VER") = _MSC_VER;
 #endif
@@ -116,11 +122,13 @@ PYBIND11_MODULE(_pyhash2, m)
   metro_hash_128_2_t::Export(m, "metro_128_2");
 #endif
 
+#ifdef SUPPORT_METRO_HASH_CRC
   metro_hash_64_crc_1_t::Export(m, "metro_64_crc_1");
   metro_hash_64_crc_2_t::Export(m, "metro_64_crc_2");
 #ifdef SUPPORT_INT128
   metro_hash_128_crc_1_t::Export(m, "metro_128_crc_1");
   metro_hash_128_crc_2_t::Export(m, "metro_128_crc_2");
+#endif
 #endif
 
   mum_hash_64_t::Export(m, "mum_64");

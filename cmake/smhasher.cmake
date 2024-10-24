@@ -10,12 +10,16 @@ set(
         src/smhasher/metrohash/metrohash128.cpp
 )
 
+set(HAS_METRO_HASH_CRC FALSE)
 if (HAS_SSE42)
-    list(
-            APPEND SMHASHER_SOURCES
-            src/smhasher/metrohash/metrohash64crc.cpp
-            src/smhasher/metrohash/metrohash128crc.cpp
-    )
+    if ((CMAKE_SIZEOF_VOID_P EQUAL 8 AND NOT MSVC) OR CMAKE_SYSTEM_PROCESSOR MATCHES "^aarch64")
+        set(HAS_METRO_HASH_CRC TRUE)
+        list(
+                APPEND SMHASHER_SOURCES
+                src/smhasher/metrohash/metrohash64crc.cpp
+                src/smhasher/metrohash/metrohash128crc.cpp
+        )
+    endif ()
 endif ()
 
 add_library(

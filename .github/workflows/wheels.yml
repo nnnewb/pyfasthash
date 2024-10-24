@@ -43,9 +43,9 @@ jobs:
         if: github.event_name == 'push'
         uses: pypa/gh-action-pypi-publish@v1.4.2
         with:
+          verbose: true
           repository_url: https://test.pypi.org/legacy/
-          user: ${{ secrets.PYPI_USERNAME }}
-          password: ${{ secrets.PYPI_PASSWORD }}
+          password: ${{ secrets.TEST_PYPI_TOKEN }}
           packages_dir: dist/
           skip_existing: true
 
@@ -53,7 +53,6 @@ jobs:
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
         uses: pypa/gh-action-pypi-publish@v1.4.2
         with:
-          user: ${{ secrets.PYPI_USERNAME }}
-          password: ${{ secrets.PYPI_PASSWORD }}
+          password: ${{ secrets.PYPI_TOKEN }}
           packages_dir: dist/
           skip_existing: true

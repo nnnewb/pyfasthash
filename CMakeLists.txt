@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.19)
 project(_pyhash2)
-find_package(Python3 REQUIRED COMPONENTS Development)
+find_package(Python3 REQUIRED COMPONENTS Development.Module)
 
 include(cmake/compiler-features.cmake)
 include(cmake/fnv.cmake)

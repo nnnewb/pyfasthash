@@ -15,6 +15,9 @@ setuptools*
 *.pdb
 *.xml
 
+.finvenv/
+.venv*/
+
 cmake-build-*
 .idea/
 .vscode/

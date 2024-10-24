@@ -11,10 +11,10 @@ jobs:
       matrix:
         os: [ ubuntu-latest, windows-latest ]
         python-version: [ '3.8', '3.9', '3.10', '3.11', '3.12', '3.13' ]
-        arch: [ 'amd64' ]
+        arch: [ 'x64' ]
         include:
           - os: ubuntu-latest
-            architecture: aarch64
+            architecture: arm64
 
     name: Build and Publish Python ${{ matrix.python-version }} Wheels
     runs-on: ${{ matrix.os }}

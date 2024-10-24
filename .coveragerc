@@ -1,8 +1,0 @@
-[run]
-source = pyhash
-omit =
-    setup.py
-    .eggs/*
-    .tox/*
-    build/*
-    tests/*

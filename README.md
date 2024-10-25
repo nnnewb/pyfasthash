@@ -1,4 +1,15 @@
-# Introduction [![pypi](https://img.shields.io/pypi/v/pyhash.svg)](https://pypi.org/project/pyhash/) [![Travis CI Status](https://travis-ci.org/flier/pyfasthash.svg?branch=master)](https://travis-ci.org/flier/pyfasthash) [![codecov](https://codecov.io/gh/flier/pyfasthash/branch/master/graph/badge.svg)](https://codecov.io/gh/flier/pyfasthash)
+# Introduction 
+
+![PyPI - Version](https://img.shields.io/pypi/v/pyhash2)
+[![Continuous integration](https://github.com/nnnewb/pyfasthash/actions/workflows/ci.yml/badge.svg?event=push)](https://github.com/nnnewb/pyfasthash/actions/workflows/ci.yml)
+
+> disclaimer: This project is a continuation of [pyfasthash](https://github.com/flier/pyfasthash), which is no longer actively maintained. 
+> I forked it to resolve compatibility issues with newer Python versions.
+> 
+> pypy and Python 2.x support is dropped. Because I don't use them and I don't have time to fix it.
+> MacOS support is also dropped for same reason.
+> 
+> Additionally, I've provided Windows AMD64 and Linux AMD64/AArch64 wheel packages for easier installation.
 
 `pyhash` is a python non-cryptographic hash library.
 
@@ -53,8 +64,41 @@ For example, `metro` hash always use 32bit seed for 64/128 bit hash value.
 
 # Installation
 
+## Tested platforms
+
+Following unit tests run by GitHub Action.
+
+- Windows-latest + Python 3.7
+- Windows-latest + Python 3.8
+- Windows-latest + Python 3.9
+- Windows-latest + Python 3.10
+- Windows-latest + Python 3.11
+- Windows-latest + Python 3.12
+- Windows-latest + Python 3.13
+- Linux (ubuntu-latest) + Python 3.7
+- Linux (ubuntu-latest) + Python 3.8
+- Linux (ubuntu-latest) + Python 3.9
+- Linux (ubuntu-latest) + Python 3.10
+- Linux (ubuntu-latest) + Python 3.11
+- Linux (ubuntu-latest) + Python 3.12
+- Linux (ubuntu-latest) + Python 3.13
+
+And I manually build/run the unit tests on Linux (OpenEuler 24.03) + AArch64 (Kunpeng-920).
+
+## Binary Wheel
+
+simply run `pip install pyhash2`
+
+## Source Distribution
+
+You'll need C/C++ Compiler support c++14 and CMake >= 3.19.
+
+Also Python development files are required. For example, on Ubuntu 20.04, you can install python3-dev with `apt install python3-dev`.
+
+After all pre-requisites installed, you can install `pyhash` with pip
+
 ```bash
-$ pip install pyhash
+$ pip install pyhash2
 ```
 
 **Notes**
@@ -94,10 +138,6 @@ You may try to
 ```bash
 $ CFLAGS="-mmacosx-version-min=10.13" pip install pyhash
 ```
-
-**Notes**
-
-`pyhash` only support `pypy` v6.0 or newer, please [download and install](https://pypy.org/download.html) the latest `pypy`.
 
 # Algorithms
 
@@ -175,25 +215,9 @@ pyhash supports the following hash algorithms
 
 Python has two types can be used to present string literals, the hash values of the two types are definitely different.
 
-- For Python 2.x [String literals](https://docs.python.org/2/reference/lexical_analysis.html#string-literals), `str` will be used by default, `unicode` can be used with the `u` prefix.
 - For Python 3.x [String and Bytes literals](https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-literals), `unicode` will be used by default, `bytes` can be used with the `b` prefix.
 
 For example,
-
-```
-$ python2
-Python 2.7.15 (default, Jun 17 2018, 12:46:58)
-[GCC 4.2.1 Compatible Apple LLVM 9.1.0 (clang-902.0.39.2)] on darwin
-Type "help", "copyright", "credits" or "license" for more information.
->>> import pyhash
->>> hasher = pyhash.murmur3_32()
->>> hasher('foo')
-4138058784L
->>> hasher(u'foo')
-2085578581L
->>> hasher(b'foo')
-4138058784L
-```
 
 ```
 $ python3
@@ -210,10 +234,18 @@ Type "help", "copyright", "credits" or "license" for more information.
 4138058784
 ```
 
-You can also import [unicode_literals](http://python-future.org/unicode_literals.html) to use unicode literals in Python 2.x
+**NOTE:**
 
-```python
-from __future__ import unicode_literals
+Some algorithms may result different values with different string types like `farm_64`.
+
 ```
-
-> In general, it is more compelling to use unicode_literals when back-porting new or existing Python 3 code to Python 2/3 than when porting existing Python 2 code to 2/3. In the latter case, explicitly marking up all unicode string literals with u'' prefixes would help to avoid unintentionally changing the existing Python 2 API. However, if changing the existing Python 2 API is not a concern, using unicode_literals may speed up the porting process.
+$ python3
+Python 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)] on win32
+>>> import pyhash
+>>> hasher = pyhash.farm_64()
+>>> hasher('hello')
+12843964867383994037
+>>> hasher = pyhash.farm_64()
+>>> hasher(b'hello')
+13009744463427800296
+```

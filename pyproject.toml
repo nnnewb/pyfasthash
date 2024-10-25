@@ -1,3 +1,38 @@
+[project]
+name = "pyhash2"
+version = "0.9.4"
+requires-python = ">=3.7"
+description = "A fork of Python Non-cryptographic Hash Library"
+readme = "README.md"
+authors = [
+    { name = "nnnewb", email = "weak_ptr@outlook.com" }
+]
+license = { file = "LICENSE.txt" }
+classifiers = [
+    'Development Status :: 5 - Production/Stable',
+    'Intended Audience :: Developers',
+    'Intended Audience :: System Administrators',
+    'License :: OSI Approved :: Apache Software License',
+    'Natural Language :: English',
+    'Operating System :: Microsoft :: Windows',
+    'Operating System :: POSIX',
+    'Programming Language :: C++',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
+    'Topic :: Internet',
+    'Topic :: Software Development',
+    'Topic :: Software Development :: Libraries :: Python Modules',
+    'Topic :: Utilities',
+]
+keywords = ['hash', 'hashing', 'fasthash']
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "pytest-cov",
+    "pytest-benchmark",
+]
+
 [build-system]
 build-backend = "setuptools.build_meta"
 requires = ["setuptools>=42", "wheel"]

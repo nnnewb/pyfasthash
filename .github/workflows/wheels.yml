@@ -1,12 +1,12 @@
 name: Build and Publish Wheels
 
 on:
-  workflow_dispatch: {}
-  push:
-    branches:
-      - master
-    tags:
-      - '*'
+  workflow_dispatch:
+    inputs:
+      testpypi:
+        description: 'Publish to test.pypi.org'
+        required: true
+        type: boolean
 
 jobs:
   build-and-publish-windows-x64:
@@ -32,11 +32,11 @@ jobs:
         run: |
           python -m build --wheel --outdir dist/ .
       - name: Publish to test.pypi.org
-        if: github.event_name == 'workflow_dispatch'
+        if: ${{ inputs.testpypi }}
         run: |
           twine upload --non-interactive --skip-existing -r testpypi -u __token__ -p ${{ secrets.TEST_PYPI_TOKEN }} dist/*
       - name: Publish to PYPI
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+        if: ${{ ! inputs.testpypi }}
         run: |
           twine upload --non-interactive --skip-existing -u __token__ -p ${{ secrets.PYPI_TOKEN }} dist/*
 
@@ -67,7 +67,7 @@ jobs:
           rm -f dist/*-linux_*.whl
 
       - name: Publish to test.pypi.org
-        if: github.event_name == 'workflow_dispatch'
+        if: ${{ inputs.testpypi }}
         uses: pypa/gh-action-pypi-publish@v1.4.2
         with:
           verbose: true
@@ -77,7 +77,7 @@ jobs:
           skip_existing: true
 
       - name: Publish to PyPI
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+        if: ${{ ! inputs.testpypi }}
         uses: pypa/gh-action-pypi-publish@v1.4.2
         with:
           password: ${{ secrets.PYPI_TOKEN }}

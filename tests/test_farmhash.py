@@ -29,7 +29,7 @@ def test_farm_64(hash_tester):
 def test_farm_128(hash_tester):
     hash_tester(hasher_type=pyhash.farm_128,
                 bytes_hash=334882099032867325754781607143811124132,
-                seed_hash=0x8d28040af294da839b276f73d8025b3b,
+                seed_hash=49442029837562385903494085441886302499,
                 unicode_hash=251662992469041432568516527017706898625)
 
 

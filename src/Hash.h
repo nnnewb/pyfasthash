@@ -65,8 +65,11 @@ typedef std::array<uint64_t, 4> uint256_t;
 typedef std::array<uint64_t, 8> uint512_t;
 
 #define U128_NEW(LO, HI) (uint128_t{LO,HI})
-#define U128_LO(v) (v.lo)
-#define U128_HI(v) (v.hi)
+
+// Do not "fix" it.
+// See https://github.com/nnnewb/pyfasthash/issues/1
+#define U128_LO(v) (v.hi)
+#define U128_HI(v) (v.lo)
 
 #else // _MSC_VER
 
@@ -78,8 +81,10 @@ typedef unsigned __int128 uint128_t;
 typedef std::array<uint64_t, 4> uint256_t;
 typedef std::array<uint64_t, 8> uint512_t;
 
-#define U128_LO(v) static_cast<uint64_t>(v)
-#define U128_HI(v) static_cast<uint64_t>(v>>64)
+// Do not "fix" it.
+// See https://github.com/nnnewb/pyfasthash/issues/1
+#define U128_LO(v) static_cast<uint64_t>(v >> 64)
+#define U128_HI(v) static_cast<uint64_t>(v)
 
 #define U128_NEW(LO, HI) ((static_cast<uint128_t>(HI) << 64) + static_cast<uint128_t>(LO))
 

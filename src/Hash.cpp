@@ -87,9 +87,12 @@ PYBIND11_MODULE(_pyhash2, m)
   city_hash_64_t::Export(m, "city_64");
 #ifdef SUPPORT_INT128
   city_hash_128_t::Export(m, "city_128");
+
+#if defined(__SSE4_2__) && defined(__x86_64__)
   city_hash_crc_128_t::Export(m, "city_crc_128");
   city_fingerprint_256_t::Export(m, "city_fingerprint_256");
-#endif
+#endif // defined(__SSE4_2__) && defined(__x86_64__)
+#endif // SUPPORT_INT128
 
   spooky_hash_v1_32_t::Export(m, "spooky_v1_32");
   spooky_hash_v1_64_t::Export(m, "spooky_v1_64");

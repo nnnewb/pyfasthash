@@ -122,7 +122,7 @@ namespace pybind11
 #if PY_MINOR_VERSION<13
         _PyLong_AsByteArray((PyLongObject *)n.ptr(), (unsigned char *)&value, sizeof(uint128_t), IS_LITTLE_ENDIAN, PyLong_Unsigned);
 #else
-        _PyLong_AsByteArray((PyLongObject *)n.ptr(), (unsigned char *)&value, sizeof(uint512_t), IS_LITTLE_ENDIAN, PyLong_Unsigned,PyLong_WithException);
+        PyLong_AsNativeBytes(n.ptr(), &value, sizeof(uint128_t), IS_LITTLE_ENDIAN);
 #endif
         return !PyErr_Occurred();
       }
@@ -151,7 +151,7 @@ namespace pybind11
 #if PY_MINOR_VERSION<13
         _PyLong_AsByteArray((PyLongObject *)n.ptr(), (unsigned char *)&value, sizeof(uint256_t), IS_LITTLE_ENDIAN, PyLong_Unsigned);
 #else
-        _PyLong_AsByteArray((PyLongObject *)n.ptr(), (unsigned char *)&value, sizeof(uint512_t), IS_LITTLE_ENDIAN, PyLong_Unsigned,PyLong_WithException);
+        PyLong_AsNativeBytes(n.ptr(), &value, sizeof(uint256_t), IS_LITTLE_ENDIAN);
 #endif
 
         return !PyErr_Occurred();
@@ -180,7 +180,7 @@ namespace pybind11
 #if PY_MINOR_VERSION<13
         _PyLong_AsByteArray((PyLongObject *)n.ptr(), (unsigned char *)&value, sizeof(uint512_t), IS_LITTLE_ENDIAN, PyLong_Unsigned);
 #else
-        _PyLong_AsByteArray((PyLongObject *)n.ptr(), (unsigned char *)&value, sizeof(uint512_t), IS_LITTLE_ENDIAN, PyLong_Unsigned,PyLong_WithException);
+        PyLong_AsNativeBytes(n.ptr(), &value, sizeof(uint512_t), IS_LITTLE_ENDIAN);
 #endif
         return !PyErr_Occurred();
       }

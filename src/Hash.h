@@ -78,8 +78,8 @@ typedef unsigned __int128 uint128_t;
 typedef std::array<uint64_t, 4> uint256_t;
 typedef std::array<uint64_t, 8> uint512_t;
 
-#define U128_LO(v) static_cast<uint64_t>(v >> 64)
-#define U128_HI(v) static_cast<uint64_t>(v)
+#define U128_LO(v) static_cast<uint64_t>(v)
+#define U128_HI(v) static_cast<uint64_t>(v>>64)
 
 #define U128_NEW(LO, HI) ((static_cast<uint128_t>(HI) << 64) + static_cast<uint128_t>(LO))
 

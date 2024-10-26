@@ -1,6 +1,7 @@
 # Introduction 
 
 ![PyPI - Version](https://img.shields.io/pypi/v/pyhash2)
+![PyPI - Downloads](https://img.shields.io/pypi/dw/pyhash2)
 [![Continuous integration](https://github.com/nnnewb/pyfasthash/actions/workflows/ci.yml/badge.svg?event=push)](https://github.com/nnnewb/pyfasthash/actions/workflows/ci.yml)
 
 > disclaimer: This project is a continuation of [pyfasthash](https://github.com/flier/pyfasthash), which is no longer actively maintained. 

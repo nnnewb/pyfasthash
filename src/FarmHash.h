@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include "Hash.h"
 
 #include "smhasher/farmhash-c.h"
@@ -27,9 +28,7 @@ class farm_hash_t : public Hasher<farm_hash_t<T>, T>
 
 typedef farm_hash_t<uint32_t> farm_hash_32_t;
 typedef farm_hash_t<uint64_t> farm_hash_64_t;
-#ifdef SUPPORT_INT128
 typedef farm_hash_t<uint128_t> farm_hash_128_t;
-#endif
 
 template <>
 const farm_hash_32_t::hash_value_t farm_hash_32_t::operator()(void *buf, size_t len, farm_hash_32_t::seed_value_t seed) const
@@ -57,7 +56,6 @@ const farm_hash_64_t::hash_value_t farm_hash_64_t::operator()(void *buf, size_t 
     }
 }
 
-#ifdef SUPPORT_INT128
 template <>
 const farm_hash_128_t::hash_value_t farm_hash_128_t::operator()(void *buf, size_t len, farm_hash_128_t::seed_value_t seed) const
 {
@@ -74,7 +72,6 @@ const farm_hash_128_t::hash_value_t farm_hash_128_t::operator()(void *buf, size_
 
     return U128_NEW(uint128_c_t_low64(hash), uint128_c_t_high64(hash));
 }
-#endif
 
 template <typename T>
 class farm_fingerprint_t : public Fingerprinter<farm_fingerprint_t<T>, T>
@@ -90,9 +87,7 @@ class farm_fingerprint_t : public Fingerprinter<farm_fingerprint_t<T>, T>
 
 typedef farm_fingerprint_t<uint32_t> farm_fingerprint_32_t;
 typedef farm_fingerprint_t<uint64_t> farm_fingerprint_64_t;
-#ifdef SUPPORT_INT128
 typedef farm_fingerprint_t<uint128_t> farm_fingerprint_128_t;
-#endif
 
 template <>
 const farm_fingerprint_32_t::fingerprint_t farm_fingerprint_32_t::operator()(void *buf, size_t len) const
@@ -106,7 +101,6 @@ const farm_fingerprint_64_t::fingerprint_t farm_fingerprint_64_t::operator()(voi
     return farmhash_fingerprint64((const char *)buf, len);
 }
 
-#ifdef SUPPORT_INT128
 template <>
 const farm_fingerprint_128_t::fingerprint_t farm_fingerprint_128_t::operator()(void *buf, size_t len) const
 {
@@ -114,4 +108,3 @@ const farm_fingerprint_128_t::fingerprint_t farm_fingerprint_128_t::operator()(v
 
     return U128_NEW(uint128_c_t_low64(fingerprint), uint128_c_t_high64(fingerprint));
 }
-#endif

@@ -44,6 +44,10 @@ if (HAS_INT128 AND NOT MSVC)
     target_compile_options(${PROJECT_NAME} PRIVATE -flax-vector-conversions)
 endif ()
 
+if (HAS_INT128)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE SUPPORT_INT128=1)
+endif ()
+
 target_include_directories(
         ${PROJECT_NAME} PRIVATE
         src/

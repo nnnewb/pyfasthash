@@ -64,8 +64,7 @@ def hash_tester(test_data):
         assert hasattr(hasher, 'seed')
         assert hasher(data) in as_list(
             bytes_hash), "bytes hash should be %d" % hasher(data)
-        assert hasher(data, seed=bytes_hash) in as_list(
-            seed_hash), "bytes hash with seed should be %d" % hasher(data, seed=bytes_hash)
+        assert hasher(data, seed=bytes_hash) in as_list(seed_hash), "expect bytes hash with seed %s should be %s, got %s" % (hex(bytes_hash), hex(seed_hash), hex(hasher(data, seed=bytes_hash)))
         assert hasher(data, data) in as_list(
             seed_hash), "hash(data, data) should be %d" % hasher(data, data)
         assert hasher(data, seed=hasher(data)) in as_list(

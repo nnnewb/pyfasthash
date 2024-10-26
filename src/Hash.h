@@ -19,6 +19,55 @@ typedef unsigned int uint32_t;
 typedef __int64 int64_t;
 typedef unsigned __int64 uint64_t;
 
+struct uint128_t {
+    uint64_t lo, hi;
+
+    uint128_t() = default;
+
+    explicit uint128_t(uint64_t lo, uint64_t hi) : lo(lo), hi(hi) {}
+
+    explicit uint128_t(uint64_t lo) : lo(lo), hi(0) {}
+
+    explicit uint128_t(int64_t lo) : lo(static_cast<uint64_t>(lo)), hi(0) {}
+
+    explicit uint128_t(uint32_t lo) : lo(lo), hi(0) {}
+
+    explicit uint128_t(int32_t lo) : lo(static_cast<uint64_t>(lo)), hi(0) {}
+
+    explicit uint128_t(uint16_t lo) : lo(lo), hi(0) {}
+
+    explicit uint128_t(int16_t lo) : lo(static_cast<uint64_t>(lo)), hi(0) {}
+
+    explicit uint128_t(uint8_t lo) : lo(lo), hi(0) {}
+
+    explicit uint128_t(int8_t lo) : lo(static_cast<uint64_t>(lo)), hi(0) {}
+
+    explicit operator uint64_t() const { return lo; }
+
+    explicit operator int64_t() const { return static_cast<int64_t>(lo); }
+
+    explicit operator uint32_t() const { return static_cast<uint32_t>(lo); }
+
+    explicit operator int32_t() const { return static_cast<int32_t>(lo); }
+
+    explicit operator uint16_t() const { return static_cast<uint16_t>(lo); }
+
+    explicit operator int16_t() const { return static_cast<int16_t>(lo); }
+
+    explicit operator uint8_t() const { return static_cast<uint8_t>(lo); }
+
+    explicit operator int8_t() const { return static_cast<int8_t>(lo); }
+
+    explicit operator bool() const { return lo || hi; }
+};
+
+typedef std::array<uint64_t, 4> uint256_t;
+typedef std::array<uint64_t, 8> uint512_t;
+
+#define U128_NEW(LO, HI) (uint128_t{LO,HI})
+#define U128_LO(v) (v.lo)
+#define U128_HI(v) (v.hi)
+
 #else // _MSC_VER
 
 #include <stdint.h>
@@ -33,6 +82,9 @@ typedef std::array<uint64_t, 8> uint512_t;
 #define U128_HI(v) static_cast<uint64_t>(v)
 
 #define U128_NEW(LO, HI) ((static_cast<uint128_t>(HI) << 64) + static_cast<uint128_t>(LO))
+
+#endif // SUPPORT_INT128
+#endif
 
 #if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
 const int IS_LITTLE_ENDIAN = 1;
@@ -125,9 +177,6 @@ namespace pybind11
   } // namespace detail
 } // namespace pybind11
 
-#endif // SUPPORT_INT128
-
-#endif // _MSC_VER
 
 template <typename T, typename S, typename H = S>
 class Hasher
@@ -187,12 +236,10 @@ S as_seed_value(T hash)
   return hash;
 }
 
-#ifdef SUPPORT_INT128
-
 template <>
 uint128_t as_hash_value(uint64_t seed)
 {
-  return seed;
+  return uint128_t{seed};
 }
 
 template <>
@@ -249,7 +296,6 @@ uint256_t as_seed_value(uint128_t hash)
   return {U128_LO(hash), U128_HI(hash), U128_LO(hash), U128_HI(hash)};
 }
 
-#endif // SUPPORT_INT128
 
 template <typename T, typename S, typename H>
 py::object Hasher<T, S, H>::CallWithArgs(py::args args, py::kwargs kwargs)

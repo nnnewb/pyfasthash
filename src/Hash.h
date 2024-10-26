@@ -92,6 +92,9 @@ const int IS_LITTLE_ENDIAN = 1;
 const int IS_LITTLE_ENDIAN = 0;
 #endif
 const int PyLong_Unsigned = 0;
+#if PY_MINOR_VERSION>=13
+const int PyLong_WithException = 0;
+#endif
 
 namespace pybind11
 {
@@ -111,9 +114,11 @@ namespace pybind11
         {
           return false;
         }
-
+#if PY_MINOR_VERSION<13
         _PyLong_AsByteArray((PyLongObject *)n.ptr(), (unsigned char *)&value, sizeof(uint128_t), IS_LITTLE_ENDIAN, PyLong_Unsigned);
-
+#else
+        _PyLong_AsByteArray((PyLongObject *)n.ptr(), (unsigned char *)&value, sizeof(uint512_t), IS_LITTLE_ENDIAN, PyLong_Unsigned,PyLong_WithException);
+#endif
         return !PyErr_Occurred();
       }
 
@@ -138,7 +143,11 @@ namespace pybind11
           return false;
         }
 
+#if PY_MINOR_VERSION<13
         _PyLong_AsByteArray((PyLongObject *)n.ptr(), (unsigned char *)&value, sizeof(uint256_t), IS_LITTLE_ENDIAN, PyLong_Unsigned);
+#else
+        _PyLong_AsByteArray((PyLongObject *)n.ptr(), (unsigned char *)&value, sizeof(uint512_t), IS_LITTLE_ENDIAN, PyLong_Unsigned,PyLong_WithException);
+#endif
 
         return !PyErr_Occurred();
       }
@@ -163,9 +172,11 @@ namespace pybind11
         {
           return false;
         }
-
+#if PY_MINOR_VERSION<13
         _PyLong_AsByteArray((PyLongObject *)n.ptr(), (unsigned char *)&value, sizeof(uint512_t), IS_LITTLE_ENDIAN, PyLong_Unsigned);
-
+#else
+        _PyLong_AsByteArray((PyLongObject *)n.ptr(), (unsigned char *)&value, sizeof(uint512_t), IS_LITTLE_ENDIAN, PyLong_Unsigned,PyLong_WithException);
+#endif
         return !PyErr_Occurred();
       }
 

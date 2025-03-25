@@ -137,7 +137,7 @@ If `pip` install failed on MacOS with similar errors [#28](https://github.com/fl
 You may try to
 
 ```bash
-$ CFLAGS="-mmacosx-version-min=10.13" pip install pyhash
+$ CFLAGS="-mmacosx-version-min=10.13" pip install pyhash2
 ```
 
 # Algorithms
